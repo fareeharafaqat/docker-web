@@ -13,5 +13,5 @@ services:
       - ./:/home/node/app
     ports:
       - "3000:3000"
-      - "9229:9229"
+      - "8080:9229"
     command: /bin/sh -c 'npm install && npm run debug'
