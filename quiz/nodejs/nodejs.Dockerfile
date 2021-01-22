@@ -1,10 +1,11 @@
-# base Node.js LTS image
-FROM node:lts-alpine
+# base Node.js v14 image
+FROM node:14-alpine
 
-# define environment variables
-ENV HOME=/home/node/app
+# environment variables
 ENV NODE_ENV=production
-ENV NODE_PORT=3000
+ENV NODE_PORT=8000
+ENV HOME=/home/node/app
+ENV PATH=${PATH}:${HOME}/node_modules/.bin
 
 # create application folder and assign rights to the node user
 RUN mkdir -p $HOME && chown -R node:node $HOME
@@ -16,17 +17,18 @@ WORKDIR $HOME
 USER node
 
 # copy package.json from the host
-COPY --chown=node:node package.json $HOME/
+COPY --chown=node:node package*.json $HOME/
 
 # install application modules
-RUN npm install && npm cache clean --force
+RUN npm install
 
-# copy remaining files
+# copy remaining files and build
 COPY --chown=node:node . .
+RUN npm run build
 
-## for platform
-sudo chown -R 1000:1000 "/home/node/app/.npm"
-RUN npm install && npm run debug
+# share volume
+VOLUME ${HOME}/static
+
 # expose port on the host
 EXPOSE $NODE_PORT
 
