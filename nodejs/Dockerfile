@@ -24,9 +24,6 @@ RUN npm install && npm cache clean --force
 # copy remaining files
 COPY --chown=node:node . .
 
-## for platform
-sudo chown -R 1000:1000 "/home/node/app/.npm"
-RUN npm install && npm run debug
 # expose port on the host
 EXPOSE $NODE_PORT
 
