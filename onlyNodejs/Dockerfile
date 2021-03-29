@@ -3,7 +3,7 @@ FROM node:lts-alpine
 
 # define environment variables
 ENV HOME=/home/node/app
-ENV NODE_ENV=production
+ENV NODE_ENV=development
 ENV NODE_PORT=3000
 
 # create application folder and assign rights to the node user
