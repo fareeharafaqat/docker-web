@@ -37,16 +37,6 @@ services:
       - wpnet
     restart: on-failure
 
-  nginx:
-    depends_on:
-      - wordpress
-    restart: always
-    build:
-      context: .
-      dockerfile: Dockerfile-nginx
-    ports:
-      - "80:80"
-
 volumes:
   wpdata:
   wpfiles:
